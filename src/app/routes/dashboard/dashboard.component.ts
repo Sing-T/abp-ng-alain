@@ -6,10 +6,7 @@ import { _HttpClient } from '@delon/theme';
   templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit {
+  constructor(private http: _HttpClient) {}
 
-  constructor(private http: _HttpClient) { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

@@ -8,7 +8,6 @@
     "ng-alain-codelyzer"
   ],
   "rules": {
-    // Angular parts
     "array-type": false,
     "arrow-parens": false,
     "deprecation": {
@@ -93,7 +92,6 @@
     "template-no-negated-async": true,
     "use-lifecycle-interface": true,
     "use-pipe-transform-interface": true,
-    // Custom parts
     "no-submodule-imports": false,
     "no-implicit-dependencies": false,
     "curly": false,

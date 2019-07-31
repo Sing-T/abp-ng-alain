@@ -10,7 +10,6 @@ import { _HttpClient } from '@delon/theme';
   styleUrls: ['./register.component.less'],
 })
 export class UserRegisterComponent implements OnDestroy {
-
   constructor(fb: FormBuilder, private router: Router, public http: _HttpClient, public msg: NzMessageService) {
     this.form = fb.group({
       mail: [null, [Validators.required, Validators.email]],

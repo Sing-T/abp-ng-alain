@@ -15,7 +15,6 @@ import { StartupService } from '@core';
   providers: [SocialService],
 })
 export class UserLoginComponent implements OnDestroy {
-
   constructor(
     fb: FormBuilder,
     modalSrv: NzModalService,

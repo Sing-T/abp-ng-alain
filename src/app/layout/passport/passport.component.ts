@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class LayoutPassportComponent {
   links = [
-    {
+    /* {
       title: '帮助',
       href: '',
     },
@@ -18,6 +18,6 @@ export class LayoutPassportComponent {
     {
       title: '条款',
       href: '',
-    },
+    }, */
   ];
 }
