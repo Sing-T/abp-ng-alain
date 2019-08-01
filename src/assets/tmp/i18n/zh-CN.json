@@ -67,6 +67,12 @@
   "menu.extras.helpcenter": "帮助中心",
   "menu.extras.settings": "设置",
   "menu.extras.poi": "门店",
+
+  "menu.settings": "系统管理",
+  "menu.settings.users": "用户管理",
+  "menu.settings.roles": "角色管理",
+  "menu.settings.tenants": "租户管理",
+
   "app.analysis.test": "工专路 {{no}} 号店",
   "app.analysis.introduce": "指标说明",
   "app.analysis.total-sales": "总销售额",
@@ -129,8 +135,7 @@
   "app.register.get-verification-code": "获取验证码",
   "app.register.sign-in": "使用已有账户登录",
   "app.register-result.msg": "你的账户：{{email}} 注册成功",
-  "app.register-result.activation-email":
-    "激活邮件已发送到你的邮箱中，邮件有效期为24小时。请及时登录邮箱，点击邮件中的链接激活帐户。",
+  "app.register-result.activation-email": "激活邮件已发送到你的邮箱中，邮件有效期为24小时。请及时登录邮箱，点击邮件中的链接激活帐户。",
   "app.register-result.back-home": "返回首页",
   "app.register-result.view-mailbox": "查看邮箱",
   "validation.email.required": "请输入邮箱地址！",
