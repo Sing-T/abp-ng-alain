@@ -25,7 +25,17 @@
             "aot": false,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "abp.signalr.js",
+                "input": "node_modules/abp-web-resources/Abp/Framework/scripts/libs",
+                "output": "/assets/abp"
+              },
+              {
+                "glob": "abp.signalr-client.js",
+                "input": "node_modules/abp-web-resources/Abp/Framework/scripts/libs",
+                "output": "/assets/abp"
+              }
             ],
             "styles": [
               "src/styles.less",
@@ -105,16 +115,33 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "abp.signalr.js",
+                "input": "node_modules/abp-web-resources/Abp/Framework/scripts/libs",
+                "output": "/assets/abp"
+              }, {
+                "glob": "abp.signalr-client.js",
+                "input": "node_modules/abp-web-resources/Abp/Framework/scripts/libs",
+                "output": "/assets/abp"
+              }
             ],
             "styles": [
-              "src/styles.less"
+              "src/styles.less",
+              "node_modules/famfamfam-flags/dist/sprite/famfamfam-flags.css"
             ],
             "scripts": [
               "node_modules/ajv/dist/ajv.bundle.js",
               "node_modules/@antv/g2/dist/g2.min.js",
               "node_modules/@antv/data-set/dist/data-set.min.js",
-              "node_modules/@antv/g2-plugin-slider/dist/g2-plugin-slider.min.js"
+              "node_modules/@antv/g2-plugin-slider/dist/g2-plugin-slider.min.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/lodash/lodash.min.js",
+              "node_modules/moment/min/moment.min.js",
+              "node_modules/@aspnet/signalr/dist/browser/signalr.min.js",
+              "node_modules/abp-web-resources/Abp/Framework/scripts/abp.js",
+              "node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.jquery.js",
+              "node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.moment.js"
             ]
           }
         },

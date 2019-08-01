@@ -47,7 +47,7 @@
     "@types/lodash": "^4.14.62",
     "@types/moment": "^2.13.0",
     "@types/moment-timezone": "^0.5.9",
-    "abp-ng2-module": "^4.0.0",
+    "abp-ng2-module": "3.2.2",
     "abp-web-resources": "3.8.2",
     "ajv": "^6.10.0",
     "famfamfam-flags": "^1.0.0",

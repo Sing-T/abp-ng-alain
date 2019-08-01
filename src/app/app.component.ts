@@ -4,6 +4,8 @@ import { filter } from 'rxjs/operators';
 import { VERSION as VERSION_ALAIN, TitleService } from '@delon/theme';
 import { VERSION as VERSION_ZORRO, NzModalService } from 'ng-zorro-antd';
 
+import { SignalRAspNetCoreHelper } from '@shared/helpers/signalR-aspnetcore-helper';
+
 @Component({
   selector: 'app-root',
   template: `
@@ -23,6 +25,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    SignalRAspNetCoreHelper.initSignalR();
+
     this.router.events.pipe(filter(evt => evt instanceof NavigationEnd)).subscribe(() => {
       this.titleSrv.setTitle();
       this.modalSrv.closeAll();

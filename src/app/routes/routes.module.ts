@@ -12,6 +12,8 @@ import { UserRegisterResultComponent } from './passport/register-result/register
 import { CallbackComponent } from './callback/callback.component';
 import { UserLockComponent } from './passport/lock/lock.component';
 
+import { LoginService } from './passport/login/login.service';
+
 const COMPONENTS = [
   DashboardComponent,
   // passport pages
@@ -28,5 +30,6 @@ const COMPONENTS_NOROUNT = [];
   imports: [SharedModule, RouteRoutingModule],
   declarations: [...COMPONENTS, ...COMPONENTS_NOROUNT],
   entryComponents: COMPONENTS_NOROUNT,
+  providers: [LoginService]
 })
-export class RoutesModule {}
+export class RoutesModule { }
