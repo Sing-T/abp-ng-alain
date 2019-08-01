@@ -5,13 +5,15 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppConsts } from '@shared/app-consts';
 import { UrlHelper } from '@shared/helpers/url-helper';
-import { AuthenticateModel, AuthenticateResultModel, TokenAuthServiceProxy } from '@shared/service-proxies/service-proxies';
+import {
+  AuthenticateModel,
+  AuthenticateResultModel,
+  TokenAuthServiceProxy,
+} from '@shared/service-proxies/service-proxies';
 import { finalize } from 'rxjs/operators';
-
 
 @Injectable()
 export class LoginService {
-
   static readonly twoFactorRememberClientTokenName = 'TwoFactorRememberClientToken';
 
   authenticateModel: AuthenticateModel;
@@ -24,17 +26,21 @@ export class LoginService {
     private _router: Router,
     private _utilsService: UtilsService,
     private _tokenService: TokenService,
-    private _logService: LogService
+    private _logService: LogService,
   ) {
     this.clear();
   }
 
   authenticate(finallyCallback?: () => void): void {
-    finallyCallback = finallyCallback || (() => { });
+    finallyCallback = finallyCallback || (() => {});
 
     this._tokenAuthService
       .authenticate(this.authenticateModel)
-      .pipe(finalize(() => { finallyCallback(); }))
+      .pipe(
+        finalize(() => {
+          finallyCallback();
+        }),
+      )
       .subscribe((result: AuthenticateResultModel) => {
         this.processAuthenticateResult(result);
       });
@@ -49,8 +55,8 @@ export class LoginService {
         authenticateResult.accessToken,
         authenticateResult.encryptedAccessToken,
         authenticateResult.expireInSeconds,
-        this.rememberMe);
-
+        this.rememberMe,
+      );
     } else {
       // Unexpected result!
 
@@ -59,20 +65,21 @@ export class LoginService {
     }
   }
 
-  private login(accessToken: string, encryptedAccessToken: string, expireInSeconds: number, rememberMe?: boolean): void {
+  private login(
+    accessToken: string,
+    encryptedAccessToken: string,
+    expireInSeconds: number,
+    rememberMe?: boolean,
+  ): void {
+    const tokenExpireDate = rememberMe ? new Date(new Date().getTime() + 1000 * expireInSeconds) : undefined;
 
-    const tokenExpireDate = rememberMe ? (new Date(new Date().getTime() + 1000 * expireInSeconds)) : undefined;
-
-    this._tokenService.setToken(
-      accessToken,
-      tokenExpireDate
-    );
+    this._tokenService.setToken(accessToken, tokenExpireDate);
 
     this._utilsService.setCookieValue(
       AppConsts.authorization.encryptedAuthTokenName,
       encryptedAccessToken,
       tokenExpireDate,
-      abp.appPath
+      abp.appPath,
     );
 
     let initialUrl = UrlHelper.initialUrl;

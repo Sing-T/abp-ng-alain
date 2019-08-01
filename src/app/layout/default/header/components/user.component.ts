@@ -1,7 +1,6 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router';
-import { SettingsService } from '@delon/theme';
-import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
+import { Component, ChangeDetectionStrategy, Injector, OnInit } from '@angular/core';
+import { AppAuthService } from '@shared/auth/app-auth.service';
+import { AppComponentBase } from '@shared/app-component-base';
 
 @Component({
   selector: 'header-user',
@@ -12,20 +11,23 @@ import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
       nzPlacement="bottomRight"
       [nzDropdownMenu]="userMenu"
     >
-      <nz-avatar [nzSrc]="settings.user.avatar" nzSize="small" class="mr-sm"></nz-avatar>
-      {{ settings.user.name }}
+      <nz-avatar [nzSrc]="'./assets/tmp/img/avatar.jpg'" nzSize="small" class="mr-sm"></nz-avatar>
+      {{ shownLoginName }}
     </div>
     <nz-dropdown-menu #userMenu="nzDropdownMenu">
       <div nz-menu class="width-sm">
-        <div nz-menu-item routerLink="/pro/account/center">
+        <!-- routerLink="/pro/account/center" -->
+        <div nz-menu-item [nzDisabled]="true">
           <i nz-icon nzType="user" class="mr-sm"></i>
           {{ 'menu.account.center' | translate }}
         </div>
-        <div nz-menu-item routerLink="/pro/account/settings">
+        <!-- routerLink="/pro/account/settings" -->
+        <div nz-menu-item [nzDisabled]="true">
           <i nz-icon nzType="setting" class="mr-sm"></i>
           {{ 'menu.account.settings' | translate }}
         </div>
-        <div nz-menu-item routerLink="/exception/trigger">
+        <!-- routerLink="/exception/trigger" -->
+        <div nz-menu-item [nzDisabled]="true">
           <i nz-icon nzType="close-circle" class="mr-sm"></i>
           {{ 'menu.account.trigger' | translate }}
         </div>
@@ -39,15 +41,18 @@ import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderUserComponent {
-  constructor(
-    public settings: SettingsService,
-    private router: Router,
-    @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
-  ) {}
+export class HeaderUserComponent extends AppComponentBase implements OnInit {
+  shownLoginName = '';
+
+  constructor(injector: Injector, private _authService: AppAuthService) {
+    super(injector);
+  }
+
+  ngOnInit() {
+    this.shownLoginName = this.appSession.getShownLoginName();
+  }
 
   logout() {
-    this.tokenService.clear();
-    this.router.navigateByUrl(this.tokenService.login_url!);
+    this._authService.logout();
   }
 }

@@ -4,17 +4,19 @@
       <nz-form-item>
         <nz-form-control>
           <nz-input-group nzSize="large" nzPrefixIcon="user">
-            <input nz-input name="userNameOrEmailAddress" [(ngModel)]="
-                    loginService.authenticateModel.userNameOrEmailAddress
-                  " [placeholder]="l('UserNameOrEmail')" autocomplete="off" required maxlength="255" />
+            <input nz-input name="userNameOrEmailAddress" 
+            [(ngModel)]="loginService.authenticateModel.userNameOrEmailAddress" 
+            [placeholder]="l('UserNameOrEmail')" 
+            autocomplete="off" required maxlength="255" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-control>
           <nz-input-group nzSize="large" nzPrefixIcon="lock">
-            <input nz-input type="password" name="password" [(ngModel)]="loginService.authenticateModel.password"
-              [placeholder]="l('Password')" required maxlength="32" />
+            <input nz-input type="password" name="password" 
+            [(ngModel)]="loginService.authenticateModel.password" 
+            [placeholder]="l('Password')" required maxlength="32" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
