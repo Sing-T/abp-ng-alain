@@ -39,7 +39,7 @@
       </tr>
     </thead>
     <tbody nz-tbody>
-      <tr nz-tbody-tr *ngFor="let data of tenantListTable.data;let i=index;">
+      <tr nz-tbody-tr *ngFor="let data of tenantListTable.data; let i=index;">
         <td nz-td>
           <span>
             {{ (i + 1) + pageInfo.skipCount }}
@@ -56,7 +56,7 @@
           </span>
         </td>
         <td nz-td>
-          <nz-badge [nzStatus]="data.isActive?'success':'error'" [nzText]="data.isActive?'是':'否'"></nz-badge>
+          <nz-badge [nzStatus]="data.isActive ? 'success' : 'error'" [nzText]="data.isActive ? '是' : '否'"></nz-badge>
         </td>
         <td nz-td>
           <a class="ant-dropdown-link" nz-dropdown [nzDropdownMenu]="menu">

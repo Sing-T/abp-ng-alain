@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared';
 import { TenantsRoutingModule } from './tenants-routing.module';
-import { TenantsListComponent } from './pages/list.component';
+import { TenantsListComponent } from './pages/tenants.component';
 
-import { CreateTenantModalComponent } from './pages/create-tenant-modal.component';
-import { EditTenantModalComponent } from './pages/edit-tenant-modal.component';
+import { CreateTenantDialogComponent } from './pages/create-tenant/create-tenant-dialog.component';
+import { EditTenantDialogComponent } from './pages/edit-tenant/edit-tenant-dialog.component';
 
 const COMPONENTS = [TenantsListComponent];
-const COMPONENTS_NOROUNT = [CreateTenantModalComponent, EditTenantModalComponent];
+const COMPONENTS_NOROUNT = [CreateTenantDialogComponent, EditTenantDialogComponent];
 
 @NgModule({
   imports: [SharedModule, TenantsRoutingModule],

@@ -5,7 +5,7 @@ import { NzModalService } from 'ng-zorro-antd';
  * 弹出框服务
  */
 @Injectable()
-export class AppModalService {
+export class AppDialogService {
   constructor(private _modalService: NzModalService) {}
 
   /**

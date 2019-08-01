@@ -41,19 +41,19 @@ const HEADERCOMPONENTS = [
 // passport
 import { LayoutPassportComponent } from './passport/passport.component';
 import { TenantChangeComponent } from './passport/tenant/tenant-change.component';
-import { TenantChangeModalComponent } from './passport/tenant/tenant-change-modal.component';
+import { TenantChangeDialogComponent } from './passport/tenant/tenant-change-dialog.component';
 import { AccountLanguagesComponent } from './passport/layout/account-languages.component';
 const PASSPORT = [LayoutPassportComponent];
 
 @NgModule({
   imports: [SharedModule],
-  entryComponents: [...SETTINGDRAWER, TenantChangeModalComponent],
+  entryComponents: [...SETTINGDRAWER, TenantChangeDialogComponent],
   declarations: [
     ...COMPONENTS,
     ...HEADERCOMPONENTS,
     ...PASSPORT,
     TenantChangeComponent,
-    TenantChangeModalComponent,
+    TenantChangeDialogComponent,
     AccountLanguagesComponent,
   ],
   exports: [...COMPONENTS, ...PASSPORT],

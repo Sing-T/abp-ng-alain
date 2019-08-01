@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit, Injector } from '@angular/core';
-import { TenantChangeModalComponent } from './tenant-change-modal.component';
 import { AppComponentBase } from '@shared/app-component-base';
+import { AppDialogService } from '@shared/dialog/app-dialog.service';
 
-import { AppModalService } from '@shared/modal/app-modal.service';
+import { TenantChangeDialogComponent } from './tenant-change-dialog.component';
 
 @Component({
   selector: 'passport-tenant-change',
@@ -13,7 +13,7 @@ export class TenantChangeComponent extends AppComponentBase implements OnInit {
   name: string;
   options = {};
 
-  constructor(injector: Injector, private _appModalService: AppModalService) {
+  constructor(injector: Injector, private _appDialogService: AppDialogService) {
     super(injector);
   }
 
@@ -32,8 +32,8 @@ export class TenantChangeComponent extends AppComponentBase implements OnInit {
    * 显示切换租户弹出框
    */
   showChangeModal(): void {
-    this._appModalService
-      .show(TenantChangeModalComponent, {
+    this._appDialogService
+      .show(TenantChangeDialogComponent, {
         tenancyName: this.tenancyName,
       })
       .subscribe(result => {

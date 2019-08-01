@@ -16,7 +16,7 @@ import { CountdownModule } from 'ngx-countdown';
 const THIRDMODULES = [NgZorroAntdModule, CountdownModule];
 // #endregion
 
-import { AppModalService } from './modal/app-modal.service';
+import { AppDialogService } from './dialog/app-dialog.service';
 
 // #region your componets & directives
 const COMPONENTS = [];
@@ -58,6 +58,6 @@ const DIRECTIVES = [];
     ...COMPONENTS,
     ...DIRECTIVES,
   ],
-  providers: [AppModalService],
+  providers: [AppDialogService],
 })
 export class SharedModule {}

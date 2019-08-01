@@ -7,10 +7,10 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd';
 import { finalize } from 'rxjs/operators';
 
 @Component({
-  selector: 'passport-tenant-change-modal',
-  templateUrl: './tenant-change-modal.component.html',
+  selector: 'passport-tenant-change-dialog',
+  templateUrl: './tenant-change-dialog.component.html',
 })
-export class TenantChangeModalComponent extends AppComponentBase {
+export class TenantChangeDialogComponent extends AppComponentBase {
   saving = false;
 
   /**

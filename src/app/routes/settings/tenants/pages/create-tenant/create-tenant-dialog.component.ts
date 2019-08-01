@@ -6,10 +6,10 @@ import { AppComponentBase } from '@shared/app-component-base';
 import { TenantServiceProxy, CreateTenantDto } from '@shared/service-proxies/service-proxies';
 
 @Component({
-  selector: 'app-create-tenant-modal',
-  templateUrl: './create-tenant-modal.component.html',
+  selector: 'app-create-tenant-dialog',
+  templateUrl: './create-tenant-dialog.component.html',
 })
-export class CreateTenantModalComponent extends AppComponentBase implements OnInit {
+export class CreateTenantDialogComponent extends AppComponentBase implements OnInit {
   saving = false;
   tenant: CreateTenantDto = null;
 

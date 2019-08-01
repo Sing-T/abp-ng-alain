@@ -55,6 +55,7 @@ const routes: Routes = [
     component: LayoutDefaultComponent,
     children: [
       { path: 'tenants', loadChildren: () => import('./settings/tenants/tenants.module').then(m => m.TenantsModule) },
+      { path: 'users', loadChildren: () => import('./settings/users/users.module').then(m => m.UsersModule) },
     ],
   },
   // 单页不包裹Layout

@@ -4,14 +4,14 @@ import { finalize } from 'rxjs/operators';
 import { AppComponentBase } from '@shared/app-component-base';
 import { PageInfo } from '@shared/pagination/page-info';
 import { TenantServiceProxy, TenantDto, PagedResultDtoOfTenantDto } from '@shared/service-proxies/service-proxies';
-import { AppModalService } from '@shared/modal/app-modal.service';
+import { AppDialogService } from '@shared/dialog/app-dialog.service';
 
-import { CreateTenantModalComponent } from './create-tenant-modal.component';
-import { EditTenantModalComponent } from './edit-tenant-modal.component';
+import { CreateTenantDialogComponent } from './create-tenant/create-tenant-dialog.component';
+import { EditTenantDialogComponent } from './edit-tenant/edit-tenant-dialog.component';
 
 @Component({
   selector: 'app-tenants-list',
-  templateUrl: './list.component.html',
+  templateUrl: './tenants.component.html',
 })
 export class TenantsListComponent extends AppComponentBase implements OnInit {
   pageInfo: PageInfo;
@@ -21,7 +21,7 @@ export class TenantsListComponent extends AppComponentBase implements OnInit {
   constructor(
     injector: Injector,
     private _tenantService: TenantServiceProxy,
-    private _appModalService: AppModalService,
+    private _appDialogService: AppDialogService,
   ) {
     super(injector);
     this.pageInfo = new PageInfo();
@@ -57,13 +57,13 @@ export class TenantsListComponent extends AppComponentBase implements OnInit {
   }
 
   add() {
-    this._appModalService.show(CreateTenantModalComponent, { tenantId: null }).subscribe(res => {
+    this._appDialogService.show(CreateTenantDialogComponent, { tenantId: null }).subscribe(res => {
       this.load();
     });
   }
 
   edit(tenantId) {
-    this._appModalService.show(EditTenantModalComponent, { tenantId }).subscribe(res => {
+    this._appDialogService.show(EditTenantDialogComponent, { tenantId }).subscribe(res => {
       this.load(this.pageInfo.pageIndex);
     });
   }

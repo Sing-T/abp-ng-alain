@@ -1,15 +1,15 @@
 import { Component, Injector, Input, AfterViewInit } from '@angular/core';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd';
+import { NzModalRef } from 'ng-zorro-antd';
 import { finalize } from 'rxjs/operators';
 
 import { AppComponentBase } from '@shared/app-component-base';
-import { AccountServiceProxy, TenantServiceProxy, TenantDto } from '@shared/service-proxies/service-proxies';
+import { TenantServiceProxy, TenantDto } from '@shared/service-proxies/service-proxies';
 
 @Component({
-  selector: 'app-edit-tenant-modal',
-  templateUrl: './edit-tenant-modal.component.html',
+  selector: 'app-edit-tenant-dialog',
+  templateUrl: './edit-tenant-dialog.component.html',
 })
-export class EditTenantModalComponent extends AppComponentBase implements AfterViewInit {
+export class EditTenantDialogComponent extends AppComponentBase implements AfterViewInit {
   saving = false;
 
   tenant: TenantDto = null;
@@ -19,13 +19,7 @@ export class EditTenantModalComponent extends AppComponentBase implements AfterV
    */
   @Input() tenantId: number;
 
-  constructor(
-    private _tenantService: TenantServiceProxy,
-    private _accountService: AccountServiceProxy,
-    private modal: NzModalService,
-    private subject: NzModalRef,
-    injector: Injector,
-  ) {
+  constructor(private _tenantService: TenantServiceProxy, private subject: NzModalRef, injector: Injector) {
     super(injector);
     this.tenant = new TenantDto();
   }
