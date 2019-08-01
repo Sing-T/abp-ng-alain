@@ -54,9 +54,7 @@ export class AppMessageService {
           nzOnOk: () => {
             resolve();
           },
-          nzOnCancel: () => {
-            cancel();
-          },
+          nzOnCancel: () => {},
         });
       });
     };

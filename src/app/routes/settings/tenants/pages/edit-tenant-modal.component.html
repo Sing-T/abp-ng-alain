@@ -1,5 +1,5 @@
-﻿<div class="modal-header">
-  <div class="modal-title">{{ l("ChangeTenant") }}</div>
+<div class="modal-header">
+  <div class="modal-title">{{ l("CreateNewTenant") }}</div>
 </div>
 
 <div nz-row>
@@ -7,10 +7,23 @@
     {{ l("TenancyName") }}
   </div>
   <div ng-col class="mt-sm">
-    <input nz-input #tenancyNameInput [(ngModel)]="tenancyName" />
+    <input nz-input [(ngModel)]="tenant.tenancyName" />
+  </div>
+</div>
+<div nz-row>
+  <div nz-col class="mt-sm">
+    {{ l("Name") }}
   </div>
   <div ng-col class="mt-sm">
-    {{ l("LeaveEmptyToSwitchToHost") }}
+    <input nz-input [(ngModel)]="tenant.name" />
+  </div>
+</div>
+<div nz-row>
+  <div nz-col class="mt-sm">
+    {{ l("IsActive") }}
+  </div>
+  <div ng-col class="mt-sm">
+    <nz-switch [(ngModel)]="tenant.isActive"></nz-switch>
   </div>
 </div>
 

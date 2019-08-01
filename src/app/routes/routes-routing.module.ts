@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { environment } from '@env/environment';
 // layout
 import { LayoutDefaultComponent } from '../layout/default/default.component';
-import { LayoutFullScreenComponent } from '../layout/fullscreen/fullscreen.component';
+// import { LayoutFullScreenComponent } from '../layout/fullscreen/fullscreen.component';
 import { LayoutPassportComponent } from '../layout/passport/passport.component';
 // dashboard pages
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -47,6 +47,14 @@ const routes: Routes = [
       { path: 'register', component: UserRegisterComponent, data: { title: '注册' } },
       { path: 'register-result', component: UserRegisterResultComponent, data: { title: '注册结果' } },
       { path: 'lock', component: UserLockComponent, data: { title: '锁屏' } },
+    ],
+  },
+  // settings
+  {
+    path: 'app/settings',
+    component: LayoutDefaultComponent,
+    children: [
+      { path: 'tenants', loadChildren: () => import('./settings/tenants/tenants.module').then(m => m.TenantsModule) },
     ],
   },
   // 单页不包裹Layout
