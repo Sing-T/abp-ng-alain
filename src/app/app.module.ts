@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Reference: https://ng-alain.com/docs/i18n
 import { default as ngLang } from '@angular/common/locales/en';
 import { NZ_I18N, en_US as zorroLang } from 'ng-zorro-antd';
-import { DELON_LOCALE, en_US as delonLang } from '@delon/theme';
+import { DELON_LOCALE, en_US as delonLang, MenuService } from '@delon/theme';
 const LANG = {
   abbr: 'en',
   ng: ngLang,
@@ -116,7 +116,17 @@ export function StartupServiceFactory(
           });
         });
       })
-      .then(() => {});
+      .then(() => {
+        // 验证菜单权限
+        const menuService: MenuService = injector.get(MenuService);
+        const menus = menuService.menus;
+
+        filterMenusByPermissions(menus);
+
+        // 需要重新设置菜单
+        menuService.clear();
+        menuService.add(menus);
+      });
 }
 const APPINIT_PROVIDES = [
   StartupService,
@@ -169,7 +179,7 @@ import * as _ from 'lodash';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
 
 export function getBaseHref(platformLocation: PlatformLocation): string {
   const baseUrl = platformLocation.getBaseHrefFromDOM();
@@ -208,4 +218,18 @@ export function convertAbpLocaleToAngularLocale(locale: string): string {
 
 export function getRemoteServiceBaseUrl(): string {
   return AppConsts.remoteServiceBaseUrl;
+}
+
+/*
+ * 根据权限修改菜单是否显示
+ * @param menus 
+ */
+function filterMenusByPermissions(menus) {
+  _.forEach(menus, (item) => {
+    item.hide = item.permissions && !abp.auth.isGranted(item.permissions);
+
+    if (item.children !== undefined && item.children.length > 0) {
+      filterMenusByPermissions(item.children);
+    }
+  });
 }

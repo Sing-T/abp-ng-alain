@@ -49,17 +49,20 @@
         "text": "用户管理",
         "link": "/app/settings/users",
         "i18n": "menu.settings.users",
-        "icon": "anticon-user"
+        "icon": "anticon-user",
+        "permissions": "Pages.Users"
       }, {
         "text": "角色管理",
         "link": "/app/settings/roles",
         "i18n": "menu.settings.roles",
-        "icon": "anticon-team"
+        "icon": "anticon-team",
+        "permissions": "Pages.Roles"
       }, {
         "text": "租户管理",
         "link": "/app/settings/tenants",
         "i18n": "menu.settings.tenants",
-        "icon": "anticon-database"
+        "icon": "anticon-database",
+        "permissions": "Pages.Tenants"
       }]
     }
   ]
