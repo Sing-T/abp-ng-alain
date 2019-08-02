@@ -76,8 +76,8 @@ export class HeaderI18nComponent extends AppComponentBase implements OnInit {
     spinEl.innerHTML = `<span class="ant-spin-dot ant-spin-dot-spin"><i></i><i></i><i></i><i></i></span>`;
     this.doc.body.appendChild(spinEl);
 
-    this.i18n.use(i18nObj.code);
-    this.settings.setLayout('lang', i18nObj.code);
+    this.i18n.use(i18nObj['code']);
+    this.settings.setLayout('lang', i18nObj['code']);
     setTimeout(() => this.changeLanguage(lang));
   }
 
