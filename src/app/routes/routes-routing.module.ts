@@ -56,6 +56,7 @@ const routes: Routes = [
     children: [
       { path: 'tenants', loadChildren: () => import('./settings/tenants/tenants.module').then(m => m.TenantsModule) },
       { path: 'users', loadChildren: () => import('./settings/users/users.module').then(m => m.UsersModule) },
+      { path: 'roles', loadChildren: () => import('./settings/roles/roles.module').then(m => m.RolesModule) },
     ],
   },
   // 单页不包裹Layout
@@ -74,4 +75,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class RouteRoutingModule {}
+export class RouteRoutingModule { }

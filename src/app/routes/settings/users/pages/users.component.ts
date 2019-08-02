@@ -68,7 +68,7 @@ export class UsersListComponent extends AppComponentBase implements OnInit {
   }
 
   delete(user: UserDto): void {
-    abp.message.confirm("Delete user '" + user.fullName + "'?").then((result: boolean) => {
+    abp.message.confirm("Delete user '" + user.fullName + "'?", 'Delete User').then((result: boolean) => {
       if (result) {
         this._userService
           .delete(user.id)
@@ -78,7 +78,7 @@ export class UsersListComponent extends AppComponentBase implements OnInit {
               this.load();
             }),
           )
-          .subscribe(() => {});
+          .subscribe(() => { });
       }
     });
   }

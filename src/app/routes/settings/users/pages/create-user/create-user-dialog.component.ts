@@ -1,11 +1,11 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd';
+import { finalize } from 'rxjs/operators';
 
 import { UserServiceProxy, CreateUserDto, RoleDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/app-component-base';
 
 import * as _ from 'lodash';
-import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-user-dialog',

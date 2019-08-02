@@ -1,6 +1,6 @@
 import { Component, OnInit, Injector, Input } from '@angular/core';
-import { finalize } from 'rxjs/operators';
 import { NzModalRef } from 'ng-zorro-antd';
+import { finalize } from 'rxjs/operators';
 
 import { UserServiceProxy, UserDto, RoleDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/app-component-base';
