@@ -4,6 +4,7 @@ export class AppConsts {
   static appBaseHref: string; // returns angular's base-href parameter value if used during the publish
 
   static localeMappings: any = [];
+  static i18nMappings: any = [];
 
   static readonly userManagement = {
     defaultAdminUserName: 'admin',
