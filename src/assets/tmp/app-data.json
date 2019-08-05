@@ -9,61 +9,28 @@
     "email": "cipchk@qq.com"
   },
   "menu": [{
-      "text": "主导航",
-      "i18n": "menu.main",
-      "group": true,
-      "hideInBreadcrumb": true,
-      "children": [{
-        "text": "仪表盘",
-        "i18n": "menu.dashboard",
-        "icon": "anticon-dashboard",
-        "children": [{
-            "text": "仪表盘V1",
-            "link": "/dashboard/v1",
-            "i18n": "menu.dashboard.v1"
-          },
-          {
-            "text": "分析页",
-            "link": "/dashboard/analysis",
-            "i18n": "menu.dashboard.analysis"
-          },
-          {
-            "text": "监控页",
-            "link": "/dashboard/monitor",
-            "i18n": "menu.dashboard.monitor"
-          },
-          {
-            "text": "工作台",
-            "link": "/dashboard/workplace",
-            "i18n": "menu.dashboard.workplace"
-          }
-        ]
-      }]
-    },
-    {
-      "text": "系统管理",
-      "i18n": "menu.settings",
-      "group": true,
-      "hideInBreadcrumb": true,
-      "children": [{
-        "text": "用户管理",
-        "link": "/app/settings/users",
-        "i18n": "menu.settings.users",
-        "icon": "anticon-user",
-        "permissions": "Pages.Users"
-      }, {
-        "text": "角色管理",
-        "link": "/app/settings/roles",
-        "i18n": "menu.settings.roles",
-        "icon": "anticon-team",
-        "permissions": "Pages.Roles"
-      }, {
-        "text": "租户管理",
-        "link": "/app/settings/tenants",
-        "i18n": "menu.settings.tenants",
-        "icon": "anticon-database",
-        "permissions": "Pages.Tenants"
-      }]
-    }
-  ]
+    "text": "系统管理",
+    "i18n": "menu.settings",
+    "group": true,
+    "hideInBreadcrumb": false,
+    "children": [{
+      "text": "用户管理",
+      "link": "/app/settings/users",
+      "i18n": "menu.settings.users",
+      "icon": "anticon-user",
+      "permissions": "Pages.Users"
+    }, {
+      "text": "角色管理",
+      "link": "/app/settings/roles",
+      "i18n": "menu.settings.roles",
+      "icon": "anticon-team",
+      "permissions": "Pages.Roles"
+    }, {
+      "text": "租户管理",
+      "link": "/app/settings/tenants",
+      "i18n": "menu.settings.tenants",
+      "icon": "anticon-database",
+      "permissions": "Pages.Tenants"
+    }]
+  }]
 }

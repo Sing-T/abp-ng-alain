@@ -68,13 +68,13 @@ export class UsersListComponent extends AppComponentBase implements OnInit {
   }
 
   delete(user: UserDto): void {
-    abp.message.confirm("Delete user '" + user.fullName + "'?", 'Delete User').then((result: boolean) => {
+    abp.message.confirm(this.l('AreYouSureWantToDelete', user.fullName), this.l('Delete')).then((result: boolean) => {
       if (result) {
         this._userService
           .delete(user.id)
           .pipe(
             finalize(() => {
-              abp.notify.info('Deleted User: ' + user.fullName);
+              abp.notify.info(this.l('SuccessfullyDeleted'));
               this.load();
             }),
           )

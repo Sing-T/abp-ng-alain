@@ -67,13 +67,13 @@ export class RolesListComponent extends AppComponentBase implements OnInit {
   }
 
   delete(role: RoleDto): void {
-    abp.message.confirm("Remove Users from Role and delete Role '" + role.displayName + "'?", 'Delete Role').then((result: boolean) => {
+    abp.message.confirm(this.l('AreYouSureWantToDelete', role.displayName), this.l('Delete')).then((result: boolean) => {
       if (result) {
         this._roleService
           .delete(role.id)
           .pipe(
             finalize(() => {
-              abp.notify.info("Deleted Role: " + role.displayName);
+              abp.notify.info(this.l('SuccessfullyDeleted'));
               this.load();
             }),
           )

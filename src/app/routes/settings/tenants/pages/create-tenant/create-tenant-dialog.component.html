@@ -7,7 +7,8 @@
     {{ l("TenancyName") }}
   </div>
   <div ng-col class="mt-sm">
-    <input nz-input [(ngModel)]="tenant.tenancyName" />
+    <input nz-input name="tenancyName" [placeholder]="l('TenancyName')" [(ngModel)]="tenant.tenancyName" required
+      minlength="2" maxlength="64" />
   </div>
 </div>
 <div nz-row>
@@ -15,7 +16,7 @@
     {{ l("Name") }}
   </div>
   <div ng-col class="mt-sm">
-    <input nz-input [(ngModel)]="tenant.name" />
+    <input nz-input name="name" [placeholder]="l('Name')" [(ngModel)]="tenant.name" required maxlength="128" />
   </div>
 </div>
 <div nz-row>
@@ -23,7 +24,8 @@
     {{ l("DatabaseConnectionString") }}
   </div>
   <div ng-col class="mt-sm">
-    <input nz-input [(ngModel)]="tenant.connectionString" />
+    <input nz-input name="connectionString" [placeholder]="l('DatabaseConnectionString')"
+      [(ngModel)]="tenant.connectionString" maxlength="1024" />
   </div>
 </div>
 <div nz-row>
@@ -31,7 +33,9 @@
     {{ l("AdminEmailAddress") }}
   </div>
   <div ng-col class="mt-sm">
-    <input nz-input [(ngModel)]="tenant.adminEmailAddress" />
+    <input nz-input name="adminEmailAddress" [placeholder]="l('AdminEmailAddress')"
+      [(ngModel)]="tenant.adminEmailAddress" type="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,})+$"
+      required maxlength="256" />
   </div>
 </div>
 <div nz-row>
@@ -39,7 +43,7 @@
     {{ l("IsActive") }}
   </div>
   <div ng-col class="mt-sm">
-    <nz-switch [(ngModel)]="tenant.isActive"></nz-switch>
+    <nz-switch name="isActive" [(ngModel)]="tenant.isActive"></nz-switch>
   </div>
 </div>
 <div nz-row>

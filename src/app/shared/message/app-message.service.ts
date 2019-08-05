@@ -7,7 +7,7 @@ export class AppMessageService {
     private modalService: NzModalService,
     private messageService: NzMessageService,
     private notificationService: NzNotificationService,
-  ) {}
+  ) { }
 
   init() {
     this.initMessage();
@@ -16,16 +16,28 @@ export class AppMessageService {
 
   initNotify() {
     abp.notify.info = (message: string, title?: string, options?: any) => {
-      this.notificationService.info(title, message, options);
+      if (title)
+        this.notificationService.info(title, message, options);
+      else
+        this.notificationService.info(message, null, options);
     };
     abp.notify.success = (message: string, title?: string, options?: any) => {
-      this.notificationService.success(title, message, options);
+      if (title)
+        this.notificationService.success(title, message, options);
+      else
+        this.notificationService.success(message, null, options);
     };
     abp.notify.warn = (message: string, title?: string, options?: any) => {
-      this.notificationService.warning(title, message, options);
+      if (title)
+        this.notificationService.warning(title, message, options);
+      else
+        this.notificationService.warning(message, null, options);
     };
     abp.notify.error = (message: string, title?: string, options?: any) => {
-      this.notificationService.error(title, message, options);
+      if (title)
+        this.notificationService.error(title, message, options);
+      else
+        this.notificationService.error(message, null, options);
     };
   }
 
@@ -54,7 +66,7 @@ export class AppMessageService {
           nzOnOk: () => {
             resolve();
           },
-          nzOnCancel: () => {},
+          nzOnCancel: () => { },
         });
       });
     };

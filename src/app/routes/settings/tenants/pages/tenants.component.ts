@@ -69,17 +69,17 @@ export class TenantsListComponent extends AppComponentBase implements OnInit {
   }
 
   delete(tenant: TenantDto): void {
-    abp.message.confirm("Delete tenant '" + tenant.name + "'?", 'Delete Tenant').then((result: boolean) => {
+    abp.message.confirm(this.l('AreYouSureWantToDelete', tenant.name), this.l('Delete')).then((result: boolean) => {
       if (result) {
         this._tenantService
           .delete(tenant.id)
           .pipe(
             finalize(() => {
-              abp.notify.info('Deleted tenant: ' + tenant.name);
+              abp.notify.info(this.l('SuccessfullyDeleted'));
               this.load();
             }),
           )
-          .subscribe(() => {});
+          .subscribe(() => { });
       }
     });
   }

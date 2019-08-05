@@ -3,7 +3,7 @@
 </div>
 
 <nz-tabset>
-  <nz-tab nzTitle="基本信息">
+  <nz-tab [nzTitle]="l('UserDetails')">
     <div nz-row>
       <div nz-col class="mt-sm">
         {{ l("UserName") }}
@@ -62,7 +62,7 @@
     </div>
   </nz-tab>
 
-  <nz-tab nzTitle="角色">
+  <nz-tab [nzTitle]="l('UserRoles')">
     <nz-checkbox-group [(ngModel)]="checkOptionsOne"></nz-checkbox-group>
   </nz-tab>
 </nz-tabset>

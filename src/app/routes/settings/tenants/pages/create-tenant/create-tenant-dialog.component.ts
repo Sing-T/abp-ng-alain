@@ -11,20 +11,14 @@ import { TenantServiceProxy, CreateTenantDto } from '@shared/service-proxies/ser
 })
 export class CreateTenantDialogComponent extends AppComponentBase implements OnInit {
   saving = false;
-  tenant: CreateTenantDto = null;
-
-  /**
-   * 租主名，使用@Input 传递参数
-   */
-  @Input() tenantId: number;
+  tenant: CreateTenantDto = new CreateTenantDto();
 
   constructor(private _tenantService: TenantServiceProxy, private subject: NzModalRef, injector: Injector) {
     super(injector);
   }
 
   ngOnInit(): void {
-    this.tenant = new CreateTenantDto();
-    this.tenant.init({ isActive: true });
+    this.tenant.isActive = true;
   }
 
   /**
