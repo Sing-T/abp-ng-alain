@@ -2,10 +2,10 @@
   <div class="modal-title">{{ l("CreateNewTenant") }}</div>
 </div>
 
-<form nz-form [formGroup]="validateForm" (ngSubmit)="save()">
+<form nz-form nzLayout="vertical" [formGroup]="validateForm" (ngSubmit)="save()">
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tenancyName" nzRequired>{{ l('TenancyName') }}</nz-form-label>
-    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTenancyName">
+    <nz-form-label nzFor="tenancyName" nzRequired>{{ l('TenancyName') }}</nz-form-label>
+    <nz-form-control [nzErrorTip]="errorTenancyName">
       <input nz-input formControlName="tenancyName" [placeholder]="l('TenancyName')" minlength="2" maxlength="64" />
       <ng-template #errorTenancyName let-control>
         <ng-container *ngIf="control.hasError('required')">
@@ -18,23 +18,23 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">{{ l("Name") }}</nz-form-label>
-    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="l('ThisFieldIsRequired')">
+    <nz-form-label nzRequired nzFor="name">{{ l("Name") }}</nz-form-label>
+    <nz-form-control [nzErrorTip]="l('ThisFieldIsRequired')">
       <input nz-input formControlName="name" [placeholder]="l('Name')" maxlength="128" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="databaseConnectionString">{{ l("DatabaseConnectionString") }}
+    <nz-form-label nzFor="databaseConnectionString">{{ l("DatabaseConnectionString") }}
     </nz-form-label>
-    <nz-form-control [nzSm]="14" [nzXs]="24">
+    <nz-form-control>
       <input nz-input formControlName="databaseConnectionString" [placeholder]="l('DatabaseConnectionString')"
         maxlength="1024" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="adminEmailAddress" nzRequired>{{ l('AdminEmailAddress') }}
+    <nz-form-label nzFor="adminEmailAddress" nzRequired>{{ l('AdminEmailAddress') }}
     </nz-form-label>
-    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorEmailAddress">
+    <nz-form-control [nzErrorTip]="errorEmailAddress">
       <input nz-input type="text" formControlName="adminEmailAddress" [placeholder]="l('AdminEmailAddress')"
         maxlength="256" />
       <ng-template #errorEmailAddress let-control>
@@ -48,14 +48,14 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24">{{ l("IsActive") }}
+    <nz-form-label>{{ l("IsActive") }}
     </nz-form-label>
-    <nz-form-control [nzSm]="14" [nzXs]="24">
+    <nz-form-control>
       <nz-switch formControlName="isActive"></nz-switch>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item nz-row>
-    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+    <nz-form-control>
       <label>
         <span>{{ l("DefaultPasswordIs","123qwe") }}</span>
       </label>

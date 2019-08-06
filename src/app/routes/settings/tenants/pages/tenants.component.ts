@@ -1,14 +1,13 @@
-import { Component, OnInit, Injector, ViewChild } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 
-import { AppComponentBase } from '@shared/app-component-base';
-import { PagedRequestDto } from '@shared/pagination/paged-listing-component-base';
+import { PagedRequestDto, PagedListingComponentBase } from '@shared/paged-listing-component-base';
 import { TenantServiceProxy, TenantDto, PagedResultDtoOfTenantDto } from '@shared/service-proxies/service-proxies';
 import { AppDialogService } from '@shared/dialog/app-dialog.service';
 
 import { CreateTenantDialogComponent } from './create-tenant/create-tenant-dialog.component';
 import { EditTenantDialogComponent } from './edit-tenant/edit-tenant-dialog.component';
-import { STComponent, STColumn, STData, STChange } from '@delon/abc';
+import { STColumn, STChange } from '@delon/abc';
 
 class PagedTenantsRequestDto extends PagedRequestDto {
   keyword: string;
@@ -19,26 +18,18 @@ class PagedTenantsRequestDto extends PagedRequestDto {
   selector: 'app-tenants-list',
   templateUrl: './tenants.component.html',
 })
-export class TenantsListComponent extends AppComponentBase implements OnInit {
-  list = [];
-  data: any[] = [];
-  loading = false;
-  query: PagedTenantsRequestDto = {
+export class TenantsListComponent extends PagedListingComponentBase<TenantDto> {
+  tenants: TenantDto[] = [];
+  query = {
     keyword: undefined,
     isActive: undefined,
-    skipCount: 0,
-    maxResultCount: 10
   };
-  @ViewChild('st', { static: true })
-  st: STComponent;
+  isActive = [
+    { index: 0, text: '是', value: true, checked: false },
+    { index: 1, text: '否', value: false, checked: false },
+  ];
+
   columns: STColumn[] = [
-    /* { title: '', index: 'key', type: 'checkbox' }, */
-    /* <span>{{ l("Index") }}</span>
-          <span>{{ l("TenancyName") }}</span>
-          <span>{{ l("Name") }}</span>
-          <span>{{ l('IsActive') }}</span>
-          <span>{{ l('Actions') }}</span> */
-    /* { title: l("Index"), index: 'no' }, */
     { title: this.l('TenancyName'), index: 'tenancyName' },
     { title: this.l('Name'), index: 'name' },
     { title: this.l('IsActive'), index: 'isActive', render: 'isActive' },
@@ -56,52 +47,54 @@ export class TenantsListComponent extends AppComponentBase implements OnInit {
       ],
     },
   ];
+
   constructor(
-    private _tenantService: TenantServiceProxy,
     private _appDialogService: AppDialogService,
-    injector: Injector
+    private _tenantService: TenantServiceProxy,
+    injector: Injector,
   ) {
     super(injector);
   }
 
-  load(pi?: number) {
-    /* if (typeof pi !== 'undefined') {
-      this.pageInfo.pageIndex = pi || 1;
-    } */
-    this.getTenants();
+  reset() {
+    setTimeout(() => this.refresh());
   }
 
-  getTenants() {
-    /* const skipCount = this.pageInfo.skipCount;
-    const maxResultCount = this.pageInfo.maxResultCount; */
+  stChange(e: STChange) {
+    switch (e.type) {
+      case 'ps':
+        this.pageSize = e.ps;
+        this.refresh();
+        break;
+    }
+  }
 
-    this.loading = true;
+  list(request: PagedTenantsRequestDto, pageNumber: number, finishedCallback: () => void): void {
+    request.keyword = this.replaceNull(this.query.keyword);
+    request.isActive = this.replaceNull(this.query.isActive);
+
     this._tenantService
-      .getAll(this.query.keyword, this.query.isActive, this.query.skipCount, this.query.maxResultCount)
+      .getAll(request.keyword, request.isActive, request.skipCount, request.maxResultCount)
       .pipe(
         finalize(() => {
-          this.loading = false;
+          finishedCallback();
         }),
       )
       .subscribe((result: PagedResultDtoOfTenantDto) => {
-        this.data = result.items;
-        // this.pageInfo.total = result.totalCount;
+        this.tenants = result.items;
+        this.showPaging(result, pageNumber);
       });
-  }
-
-  ngOnInit() {
-    this.getTenants();
   }
 
   add() {
     this._appDialogService.show(CreateTenantDialogComponent, { tenantId: null }, 550).subscribe(res => {
-      this.load();
+      this.refresh();
     });
   }
 
   edit(tenantId) {
     this._appDialogService.show(EditTenantDialogComponent, { tenantId }, 550).subscribe(res => {
-      // this.load(this.pageInfo.pageIndex);
+      this.getDataPage(this.pageIndex);
     });
   }
 
@@ -113,10 +106,10 @@ export class TenantsListComponent extends AppComponentBase implements OnInit {
           .pipe(
             finalize(() => {
               abp.notify.info(this.l('SuccessfullyDeleted'));
-              this.load();
+              this.refresh();
             }),
           )
-          .subscribe(() => { });
+          .subscribe(() => {});
       }
     });
   }

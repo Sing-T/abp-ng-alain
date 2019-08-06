@@ -1,46 +1,42 @@
 <page-header [homeI18n]="'menu.home' | translate"></page-header>
 
-<!-- <nz-card [nzExtra]="extraTemplate">
-  <div class="my-sm">
-    <button (click)="add()" nz-button nzType="primary">{{ l('Add') }}</button>
-  </div>
-</nz-card> -->
-
 <nz-card [nzBordered]="false">
-  <form nz-form [nzLayout]="'inline'" (ngSubmit)="getTenants()" class="search__form">
+  <form nz-form [nzLayout]="'inline'" (ngSubmit)="refresh()" class="search__form">
     <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }">
       <div nz-col nzMd="8" nzSm="24">
         <nz-form-item>
-          <nz-form-label nzFor="no">规则编号</nz-form-label>
+          <nz-form-label nzFor="no">{{ l('Keyword') }}</nz-form-label>
           <nz-form-control>
-            <input nz-input [(ngModel)]="query.keyword" name="keyword" placeholder="请输入" />
+            <input nz-input [(ngModel)]="query.keyword" name="keyword" [placeholder]="l('Keyword')" />
           </nz-form-control>
         </nz-form-item>
       </div>
       <div nz-col nzMd="8" nzSm="24">
         <nz-form-item>
-          <nz-form-label nzFor="status">使用状态</nz-form-label>
+          <nz-form-label nzFor="status">{{ l('IsActive') }}</nz-form-label>
           <nz-form-control>
-            <nz-select [(ngModel)]="query.isActive" name="isActive" [nzPlaceHolder]="'请选择'">
-              <!-- <nz-option *ngFor="let i of status; let idx = index" [nzLabel]="i.text" [nzValue]="idx"></nz-option> -->
+            <nz-select [(ngModel)]="query.isActive" name="isActive" [nzPlaceHolder]="l('IsActive')" nzAllowClear="true">
+              <nz-option *ngFor="let i of isActive" [nzLabel]="i.text" [nzValue]="i.value"></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
       </div>
       <div nz-col [nzSpan]="8">
-        <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="loading">查询</button>
-        <!-- <button nz-button type="reset" (click)="reset()" class="mx-sm">重置</button> -->
+        <button nz-button type="submit" [nzType]="'primary'" [nzLoading]="isTableLoading">{{ l('Query') }}</button>
+        <button nz-button type="reset" (click)="reset()" class="mx-sm">{{ l('Reset') }}</button>
       </div>
     </div>
   </form>
-  <!-- <button nz-button (click)="add(modalContent)" [nzType]="'primary'">
+
+  <button nz-button class="my-md" nzType="primary" (click)="add()">
     <i nz-icon nzType="plus"></i>
-    <span>新建</span>
-  </button> -->
-  <st #st [columns]="columns" [data]="data" [loading]="loading" page.show="true">
-    <!-- (change)="stChange($event)" -->
+    {{ l('Add') }}
+  </button>
+
+  <st #st [columns]="columns" [data]="tenants" [loading]="isTableLoading" [page]="{showSize:true}"
+    (change)="stChange($event)">
     <ng-template st-row="isActive" let-i>
-      <nz-badge [nzStatus]="'error'" [nzText]="'i.statusText'"></nz-badge>
+      <nz-badge [nzStatus]="i.isActive ? 'success' : 'error'" [nzText]="i.isActive ? l('Yes') : l('No')"></nz-badge>
     </ng-template>
   </st>
 </nz-card>

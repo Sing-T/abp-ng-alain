@@ -2,10 +2,10 @@
   <div class="modal-title">{{ l("EditTenant") }}</div>
 </div>
 
-<form nz-form [formGroup]="validateForm" (ngSubmit)="save()">
+<form nz-form nzLayout="vertical" [formGroup]="validateForm" (ngSubmit)="save()">
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tenancyName" nzRequired>{{ l('TenancyName') }}</nz-form-label>
-    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTenancyName">
+    <nz-form-label nzFor="tenancyName" nzRequired>{{ l('TenancyName') }}</nz-form-label>
+    <nz-form-control [nzErrorTip]="errorTenancyName">
       <input nz-input formControlName="tenancyName" [placeholder]="l('TenancyName')" minlength="2" maxlength="64" />
       <ng-template #errorTenancyName let-control>
         <ng-container *ngIf="control.hasError('required')">
@@ -18,15 +18,15 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">{{ l("Name") }}</nz-form-label>
-    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="l('ThisFieldIsRequired')">
+    <nz-form-label nzRequired nzFor="name">{{ l("Name") }}</nz-form-label>
+    <nz-form-control [nzErrorTip]="l('ThisFieldIsRequired')">
       <input nz-input formControlName="name" [placeholder]="l('Name')" maxlength="128" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24">{{ l("IsActive") }}
+    <nz-form-label>{{ l("IsActive") }}
     </nz-form-label>
-    <nz-form-control [nzSm]="14" [nzXs]="24">
+    <nz-form-control>
       <nz-switch formControlName="isActive"></nz-switch>
     </nz-form-control>
   </nz-form-item>
