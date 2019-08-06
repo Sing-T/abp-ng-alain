@@ -3,7 +3,7 @@ import { AppComponentBase } from '@shared/app-component-base';
 import { AccountServiceProxy, IsTenantAvailableInput } from '@shared/service-proxies/service-proxies';
 import { AppTenantAvailabilityState } from '@shared/app-enums';
 
-import { NzModalRef, NzModalService } from 'ng-zorro-antd';
+import { NzModalRef } from 'ng-zorro-antd';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -20,8 +20,7 @@ export class TenantChangeDialogComponent extends AppComponentBase {
 
   constructor(
     private _accountService: AccountServiceProxy,
-    private modal: NzModalService,
-    private subject: NzModalRef,
+    private _subject: NzModalRef,
     injector: Injector,
   ) {
     super(injector);
@@ -76,6 +75,6 @@ export class TenantChangeDialogComponent extends AppComponentBase {
    * 关闭弹出窗
    */
   close(): void {
-    this.subject.destroy();
+    this._subject.destroy();
   }
 }

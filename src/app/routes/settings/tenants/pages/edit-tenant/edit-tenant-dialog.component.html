@@ -1,38 +1,43 @@
-
 <div class="modal-header">
-  <div class="modal-title">{{ l("CreateNewTenant") }}</div>
+  <div class="modal-title">{{ l("EditTenant") }}</div>
 </div>
 
-<div nz-row>
-  <div nz-col class="mt-sm">
-    {{ l("TenancyName") }}
-  </div>
-  <div ng-col class="mt-sm">
-    <input nz-input [(ngModel)]="tenant.tenancyName" />
-  </div>
-</div>
-<div nz-row>
-  <div nz-col class="mt-sm">
-    {{ l("Name") }}
-  </div>
-  <div ng-col class="mt-sm">
-    <input nz-input [(ngModel)]="tenant.name" />
-  </div>
-</div>
-<div nz-row>
-  <div nz-col class="mt-sm">
-    {{ l("IsActive") }}
-  </div>
-  <div ng-col class="mt-sm">
-    <nz-switch [(ngModel)]="tenant.isActive"></nz-switch>
-  </div>
-</div>
+<form nz-form [formGroup]="validateForm" (ngSubmit)="save()">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="tenancyName" nzRequired>{{ l('TenancyName') }}</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTenancyName">
+      <input nz-input formControlName="tenancyName" [placeholder]="l('TenancyName')" minlength="2" maxlength="64" />
+      <ng-template #errorTenancyName let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          {{ l('ThisFieldIsRequired') }}
+        </ng-container>
+        <ng-container *ngIf="control.hasError('regExp')">
+          {{ l('ThisFieldDontMatchTheRexExp', '^[a-zA-Z][a-zA-Z0-9_-]{1,}$') }}
+        </ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">{{ l("Name") }}</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="l('ThisFieldIsRequired')">
+      <input nz-input formControlName="name" [placeholder]="l('Name')" maxlength="128" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24">{{ l("IsActive") }}
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-switch formControlName="isActive"></nz-switch>
+    </nz-form-control>
+  </nz-form-item>
+</form>
 
 <div class="modal-footer">
   <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="close()" [disabled]="saving">
     {{ l("Cancel") }}
   </button>
-  <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="save()" [nzLoading]="saving">
+  <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="save()" [disabled]="!validateForm.valid || saving"
+    [nzLoading]="saving">
     {{ l("Save") }}
   </button>
 </div>
