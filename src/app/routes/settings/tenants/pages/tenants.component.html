@@ -28,13 +28,10 @@
     </div>
   </form>
 
-  <button nz-button class="my-md" nzType="primary" (click)="add()">
-    <i nz-icon nzType="plus"></i>
-    {{ l('Add') }}
-  </button>
+  <button nz-button class="my-md" nzType="primary" (click)="create()"> {{ l('Create') }} </button>
 
-  <st #st [columns]="columns" [data]="tenants" [loading]="isTableLoading" [page]="{showSize:true}"
-    (change)="stChange($event)">
+  <st #st [columns]="columns" [data]="tenants" [loading]="isTableLoading" [page]="pagination" [pi]="pageIndex"
+    [ps]="pageSize" [total]="totalCount" (change)="stChange($event)">
     <ng-template st-row="isActive" let-i>
       <nz-badge [nzStatus]="i.isActive ? 'success' : 'error'" [nzText]="i.isActive ? l('Yes') : l('No')"></nz-badge>
     </ng-template>

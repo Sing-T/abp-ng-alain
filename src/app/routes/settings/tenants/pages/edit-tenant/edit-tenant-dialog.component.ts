@@ -1,10 +1,10 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd';
 import { finalize } from 'rxjs/operators';
 
 import { AppComponentBase } from '@shared/app-component-base';
 import { TenantServiceProxy, TenantDto } from '@shared/service-proxies/service-proxies';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-tenant-dialog',
@@ -51,7 +51,7 @@ export class EditTenantDialogComponent extends AppComponentBase implements OnIni
     }
 
     this._tenantService.get(this.tenantId).subscribe(res => {
-      this.tenant = res;
+      this.tenant.init(res);
       this.validateForm.patchValue(this.tenant);
     });
   }
@@ -70,14 +70,12 @@ export class EditTenantDialogComponent extends AppComponentBase implements OnIni
     this.tenant.init(this.validateForm.value);
 
     this.saving = true;
-    this._tenantService
-      .update(this.tenant)
+    this._tenantService.update(this.tenant)
       .pipe(
         finalize(() => {
           this.saving = false;
         }),
-      )
-      .subscribe(res => {
+      ).subscribe(res => {
         this.notify.info(this.l('SavedSuccessfully'));
         this.close();
       });

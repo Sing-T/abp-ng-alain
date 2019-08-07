@@ -1,16 +1,13 @@
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { finalize } from 'rxjs/operators';
+
 import { TokenService } from '@abp/auth/token.service';
 import { LogService } from '@abp/log/log.service';
 import { UtilsService } from '@abp/utils/utils.service';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { AppConsts } from '@shared/app-consts';
 import { UrlHelper } from '@shared/helpers/url-helper';
-import {
-  AuthenticateModel,
-  AuthenticateResultModel,
-  TokenAuthServiceProxy,
-} from '@shared/service-proxies/service-proxies';
-import { finalize } from 'rxjs/operators';
+import { AuthenticateModel, AuthenticateResultModel, TokenAuthServiceProxy } from '@shared/service-proxies/service-proxies';
 
 @Injectable()
 export class LoginService {
@@ -22,26 +19,24 @@ export class LoginService {
   rememberMe: boolean;
 
   constructor(
-    private _tokenAuthService: TokenAuthServiceProxy,
     private _router: Router,
+    private _logService: LogService,
     private _utilsService: UtilsService,
     private _tokenService: TokenService,
-    private _logService: LogService,
+    private _tokenAuthService: TokenAuthServiceProxy,
   ) {
     this.clear();
   }
 
   authenticate(finallyCallback?: () => void): void {
-    finallyCallback = finallyCallback || (() => {});
+    finallyCallback = finallyCallback || (() => { });
 
-    this._tokenAuthService
-      .authenticate(this.authenticateModel)
+    this._tokenAuthService.authenticate(this.authenticateModel)
       .pipe(
         finalize(() => {
           finallyCallback();
         }),
-      )
-      .subscribe((result: AuthenticateResultModel) => {
+      ).subscribe((result: AuthenticateResultModel) => {
         this.processAuthenticateResult(result);
       });
   }

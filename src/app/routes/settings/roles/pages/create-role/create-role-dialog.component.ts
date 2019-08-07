@@ -1,9 +1,10 @@
 import { Component, OnInit, Injector } from '@angular/core';
-import { finalize } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd';
+import { finalize } from 'rxjs/operators';
 
-import { RoleServiceProxy, CreateRoleDto, ListResultDtoOfPermissionDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/app-component-base';
+import { RoleServiceProxy, CreateRoleDto, ListResultDtoOfPermissionDto } from '@shared/service-proxies/service-proxies';
 
 import * as _ from 'lodash';
 
@@ -12,20 +13,29 @@ import * as _ from 'lodash';
   templateUrl: './create-role-dialog.component.html',
 })
 export class CreateRoleDialogComponent extends AppComponentBase implements OnInit {
-  permissions: ListResultDtoOfPermissionDto = null;
-  role: CreateRoleDto = null;
   saving = false;
-  checkOptionsOne: Array<any> = [];
+  validateForm: FormGroup;
+  role: CreateRoleDto = new CreateRoleDto();
+  permissions: ListResultDtoOfPermissionDto = new ListResultDtoOfPermissionDto();
+  checkOptions: Array<any> = [];
 
-  constructor(injector: Injector, private _roleService: RoleServiceProxy, private subject: NzModalRef) {
+  constructor(
+    private _fb: FormBuilder,
+    private _subject: NzModalRef,
+    private _roleService: RoleServiceProxy,
+    injector: Injector
+  ) {
     super(injector);
-
-    this.role = new CreateRoleDto();
-    this.role.init({ isStatic: false });
-    this.permissions = new ListResultDtoOfPermissionDto();
   }
 
   ngOnInit(): void {
+    this.validateForm = this._fb.group({
+      name: [null, [Validators.required]],
+      displayName: [null, [Validators.required]],
+      description: [null],
+      grantedPermissions: [[]]
+    });
+
     this._roleService.getAllPermissions()
       .subscribe((permissions: ListResultDtoOfPermissionDto) => {
         this.permissions = permissions;
@@ -34,20 +44,28 @@ export class CreateRoleDialogComponent extends AppComponentBase implements OnIni
   }
 
   initPermissions(permissions: ListResultDtoOfPermissionDto): void {
-    this.checkOptionsOne = _.map(permissions.items, c => {
+    this.checkOptions = _.map(permissions.items, p => {
       return {
-        label: c.displayName,
-        value: c.name,
-        checked: true
+        label: p.displayName,
+        value: p.name,
+        checked: false
       };
     });
   }
 
-  save(): void {
-    const selected = _.filter(this.checkOptionsOne, c => c.checked);
-    const permissions = _.map(selected, 'value');
+  setPermissions(values: string[]): void {
+    this.validateForm.controls.grantedPermissions.setValue(values);
+  }
 
-    this.role.grantedPermissions = permissions;
+  save(): void {
+    for (const i in this.validateForm.controls) {
+      if (this.validateForm.controls.hasOwnProperty(i)) {
+        this.validateForm.controls[i].markAsDirty();
+        this.validateForm.controls[i].updateValueAndValidity();
+      }
+    }
+    if (!this.validateForm.valid) return;
+    this.role.init(this.validateForm.value);
 
     this.saving = true;
     this._roleService.create(this.role)
@@ -55,8 +73,7 @@ export class CreateRoleDialogComponent extends AppComponentBase implements OnIni
         finalize(() => {
           this.saving = false;
         }),
-      )
-      .subscribe(() => {
+      ).subscribe(() => {
         this.notify.info(this.l('SavedSuccessfully'));
         this.close();
       });
@@ -66,6 +83,6 @@ export class CreateRoleDialogComponent extends AppComponentBase implements OnIni
    * 关闭弹出窗
    */
   close(): void {
-    this.subject.destroy();
+    this._subject.destroy();
   }
 }

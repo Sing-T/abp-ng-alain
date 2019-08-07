@@ -1,9 +1,10 @@
-import { Component, OnInit, Injector, Input } from '@angular/core';
+import { Component, OnInit, Input, Injector } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd';
 import { finalize } from 'rxjs/operators';
 
-import { UserServiceProxy, UserDto, RoleDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/app-component-base';
+import { UserServiceProxy, UserDto, RoleDto } from '@shared/service-proxies/service-proxies';
 
 import * as _ from 'lodash';
 
@@ -12,68 +13,96 @@ import * as _ from 'lodash';
   templateUrl: './edit-user-dialog.component.html',
 })
 export class EditUserDialogComponent extends AppComponentBase implements OnInit {
-  user: UserDto = null;
-  roles: RoleDto[] = null;
   saving = false;
-  checkOptionsOne: Array<any> = [];
+  validateForm: FormGroup;
+  user: UserDto = new UserDto();
+  roles: RoleDto[] = [];
+  checkOptions: Array<any> = [];
 
   @Input() userId: number = null;
 
-  constructor(injector: Injector, private _userService: UserServiceProxy, private subject: NzModalRef) {
+  constructor(
+    private _fb: FormBuilder,
+    private _subject: NzModalRef,
+    private _userService: UserServiceProxy,
+    injector: Injector
+  ) {
     super(injector);
-    this.user = new UserDto();
   }
 
+  emailAddressValidator = (control: FormControl): { [s: string]: boolean } => {
+    if (!control.value) {
+      return { required: true };
+    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,})+$/.test(control.value)) {
+      return { regExp: true, error: true };
+    }
+    return {};
+  };
+
   ngOnInit() {
-    this._userService.getRoles().subscribe(result => {
-      this.roles = result.items;
-      this.initRole(this.roles);
+    this.validateForm = this._fb.group({
+      userName: [null, [Validators.required]],
+      name: [null, [Validators.required]],
+      surname: [null, [Validators.required]],
+      emailAddress: [null, [Validators.required, this.emailAddressValidator]],
+      isActive: [true],
+      roleNames: [[]],
+      id: [null]
     });
+
+    if (this.userId == null) {
+      return;
+    }
 
     this._userService.get(this.userId).subscribe(result => {
       this.user = result;
-      this.initRole(this.roles);
+      this.validateForm.patchValue(this.user);
+
+      this._userService.getRoles().subscribe(res => {
+        this.roles = res.items;
+        this.initRoles();
+      });
     });
   }
 
-  initRole(roles: RoleDto[]): void {
-    this.checkOptionsOne = _.map(roles, c => {
+  initRoles(): void {
+    this.checkOptions = _.map(this.roles, r => {
       return {
-        label: c.displayName,
-        value: c.normalizedName,
-        checked: this.userInRole(c, this.user),
+        label: r.displayName,
+        value: r.normalizedName,
+        checked: this.isRoleChecked(r.normalizedName),
       };
     });
   }
 
-  userInRole(role: RoleDto, user: UserDto): boolean {
-    if (user.roleNames == null) {
-      return false;
-    }
-    if (user.roleNames.indexOf(role.normalizedName) !== -1) {
-      return true;
-    } else {
-      return false;
-    }
+  isRoleChecked(normalizedName: string): boolean {
+    return _.includes(this.user.roleNames, normalizedName);
+  }
+
+  setRoles(values: string[]): void {
+    this.validateForm.controls.roleNames.setValue(values);
   }
 
   /**
    * 保存操作
    */
   save(): void {
+    for (const i in this.validateForm.controls) {
+      if (this.validateForm.controls.hasOwnProperty(i)) {
+        this.validateForm.controls[i].markAsDirty();
+        this.validateForm.controls[i].updateValueAndValidity();
+      }
+    }
+    if (!this.validateForm.valid) return;
+    this.user.init(this.validateForm.value);
+
     this.saving = true;
-
-    const roles = _.map(_.filter(this.checkOptionsOne, c => c.checked), 'value');
-    this.user.roleNames = roles;
-
-    this._userService
-      .update(this.user)
+    this._userService.update(this.user)
       .pipe(
         finalize(() => {
           this.saving = false;
         }),
-      )
-      .subscribe(res => {
+      ).subscribe(res => {
         this.notify.info(this.l('SavedSuccessfully'));
         this.close();
       });
@@ -83,6 +112,6 @@ export class EditUserDialogComponent extends AppComponentBase implements OnInit 
    * 关闭弹出窗
    */
   close(): void {
-    this.subject.destroy();
+    this._subject.destroy();
   }
 }

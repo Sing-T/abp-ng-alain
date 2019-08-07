@@ -21,10 +21,12 @@ export class AccountLanguagesComponent extends AppComponentBase implements OnIni
     return this.i18n.getLangs();
   }
 
-  constructor(injector: Injector,
+  constructor(
     private settings: SettingsService,
+    @Inject(DOCUMENT) private doc: any,
     @Inject(ALAIN_I18N_TOKEN) private i18n: I18NService,
-    @Inject(DOCUMENT) private doc: any) {
+    injector: Injector
+  ) {
     super(injector);
   }
 

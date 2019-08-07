@@ -1,6 +1,6 @@
 import { Component, OnInit, Injector } from '@angular/core';
-import { NzModalRef } from 'ng-zorro-antd';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NzModalRef } from 'ng-zorro-antd';
 import { finalize } from 'rxjs/operators';
 
 import { AppComponentBase } from '@shared/app-component-base';
@@ -43,8 +43,6 @@ export class CreateTenantDialogComponent extends AppComponentBase implements OnI
   };
 
   ngOnInit(): void {
-    this.tenant.isActive = true;
-
     this.validateForm = this._fb.group({
       tenancyName: [null, [Validators.required, this.tenancyNameValidator]],
       name: [null, [Validators.required]],
@@ -68,17 +66,15 @@ export class CreateTenantDialogComponent extends AppComponentBase implements OnI
     this.tenant.init(this.validateForm.value);
 
     this.saving = true;
-    this._tenantService
-      .create(this.tenant)
-      .pipe(
-        finalize(() => {
-          this.saving = false;
-        }),
-      )
-      .subscribe(res => {
-        this.notify.info(this.l('SavedSuccessfully'));
-        this.close();
-      });
+    this._tenantService.create(this.tenant)
+    .pipe(
+      finalize(() => {
+        this.saving = false;
+      }),
+    ).subscribe(res => {
+      this.notify.info(this.l('SavedSuccessfully'));
+      this.close();
+    });
   }
 
   /**

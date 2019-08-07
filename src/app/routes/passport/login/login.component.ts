@@ -1,8 +1,8 @@
 import { Component, Injector } from '@angular/core';
 
-import { AbpSessionService } from '@abp/session/abp-session.service';
+import { AbpSessionService } from '@abp/session/abp-session.service'
+import { AppComponentBase } from '@shared/app-component-base';;
 import { LoginService } from './login.service';
-import { AppComponentBase } from '@shared/app-component-base';
 
 @Component({
   selector: 'passport-login',

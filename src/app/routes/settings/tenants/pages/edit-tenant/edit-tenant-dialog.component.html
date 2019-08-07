@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <div class="modal-title">{{ l("EditTenant") }}</div>
+  <div class="modal-title">{{ l("Edit") }}</div>
 </div>
 
 <form nz-form nzLayout="vertical" [formGroup]="validateForm" (ngSubmit)="save()">
@@ -33,10 +33,10 @@
 </form>
 
 <div class="modal-footer">
-  <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="close()" [disabled]="saving">
+  <button nz-button [nzType]="'default'" (click)="close()" [disabled]="saving">
     {{ l("Cancel") }}
   </button>
-  <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="save()" [disabled]="!validateForm.valid || saving"
+  <button nz-button [nzType]="'primary'" (click)="save()" [disabled]="!validateForm.valid || saving"
     [nzLoading]="saving">
     {{ l("Save") }}
   </button>

@@ -1,61 +1,73 @@
 <div class="modal-header">
-  <div class="modal-title">{{ l("EditUser") }}</div>
+  <div class="modal-title">{{ l("Edit") }}</div>
 </div>
 
 <nz-tabset>
   <nz-tab [nzTitle]="l('UserDetails')">
-    <div nz-row>
-      <div nz-col class="mt-sm">
-        {{ l("UserName") }}
-      </div>
-      <div ng-col class="mt-sm">
-        <input nz-input [(ngModel)]="user.userName" />
-      </div>
-    </div>
-    <div nz-row>
-      <div nz-col class="mt-sm">
-        {{ l("Name") }}
-      </div>
-      <div ng-col class="mt-sm">
-        <input nz-input [(ngModel)]="user.name" />
-      </div>
-    </div>
-    <div nz-row>
-      <div nz-col class="mt-sm">
-        {{ l("Surname") }}
-      </div>
-      <div ng-col class="mt-sm">
-        <input nz-input [(ngModel)]="user.surname" />
-      </div>
-    </div>
-    <div nz-row>
-      <div nz-col class="mt-sm">
-        {{ l("EmailAddress") }}
-      </div>
-      <div ng-col class="mt-sm">
-        <input nz-input [(ngModel)]="user.emailAddress" />
-      </div>
-    </div>
-    <div nz-row>
-      <div nz-col class="mt-sm">
-        {{ l("IsActive") }}
-      </div>
-      <div ng-col class="mt-sm">
-        <nz-switch [(ngModel)]="user.isActive"></nz-switch>
-      </div>
-    </div>
+    <form nz-form nzLayout="vertical" [formGroup]="validateForm" (ngSubmit)="save()">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="userName">{{ l("UserName") }}</nz-form-label>
+        <nz-form-control [nzErrorTip]="l('ThisFieldIsRequired')">
+          <input nz-input formControlName="userName" [placeholder]="l('UserName')" minlength="2" maxlength="32" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="name">{{ l("Name") }}</nz-form-label>
+        <nz-form-control [nzErrorTip]="l('ThisFieldIsRequired')">
+          <input nz-input formControlName="name" [placeholder]="l('Name')" maxlength="32" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="surname">{{ l("Surname") }}</nz-form-label>
+        <nz-form-control [nzErrorTip]="l('ThisFieldIsRequired')">
+          <input nz-input formControlName="surname" [placeholder]="l('Surname')" maxlength="32" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzFor="emailAddress" nzRequired>{{ l('EmailAddress') }}
+        </nz-form-label>
+        <nz-form-control [nzErrorTip]="errorEmailAddress">
+          <input nz-input type="text" formControlName="emailAddress" [placeholder]="l('EmailAddress')"
+            maxlength="256" />
+          <ng-template #errorEmailAddress let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              {{ l('ThisFieldIsRequired') }}
+            </ng-container>
+            <ng-container *ngIf="control.hasError('regExp')">
+              {{ l('InvalidEmailAddress') }}
+            </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>{{ l("IsActive") }}
+        </nz-form-label>
+        <nz-form-control>
+          <nz-switch formControlName="isActive"></nz-switch>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
   </nz-tab>
-
   <nz-tab [nzTitle]="l('UserRoles')">
-    <nz-checkbox-group [(ngModel)]="checkOptionsOne"></nz-checkbox-group>
+    <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="setRoles($event)">
+      <div nz-row>
+        <ng-template ngFor let-checkOption [ngForOf]="checkOptions">
+          <div nz-col nzSpan="8">
+            <label nz-checkbox [nzValue]="checkOption.value"
+              [ngModel]="checkOption.checked">{{ checkOption.label }}</label>
+          </div>
+        </ng-template>
+      </div>
+    </nz-checkbox-wrapper>
   </nz-tab>
 </nz-tabset>
 
 <div class="modal-footer">
-  <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="close()" [disabled]="saving">
+  <button nz-button [nzType]="'default'" (click)="close()" [disabled]="saving">
     {{ l("Cancel") }}
   </button>
-  <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="save()" [nzLoading]="saving">
+  <button nz-button [nzType]="'primary'" (click)="save()" [disabled]="!validateForm.valid || saving"
+    [nzLoading]="saving">
     {{ l("Save") }}
   </button>
 </div>

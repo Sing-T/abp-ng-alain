@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, Injector } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzModalRef } from 'ng-zorro-antd';
 import { finalize } from 'rxjs/operators';
 
-import { RoleServiceProxy, RoleDto, ListResultDtoOfPermissionDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/app-component-base';
+import { RoleServiceProxy, RoleDto, GetRoleForEditOutput, PermissionDto } from '@shared/service-proxies/service-proxies';
 
 import * as _ from 'lodash';
 
@@ -12,74 +13,85 @@ import * as _ from 'lodash';
   templateUrl: './edit-role-dialog.component.html',
 })
 export class EditRoleDialogComponent extends AppComponentBase implements OnInit {
-  permissions: ListResultDtoOfPermissionDto = null;
-  role: RoleDto = null;
   saving = false;
-  checkOptionsOne: Array<any> = [];
+  validateForm: FormGroup;
+  role: RoleDto = new RoleDto();
+  permissions: PermissionDto[] = [];
+  checkOptions: Array<any> = [];
 
-  @Input() roleId: number = null;
+  @Input() roleId: number;
 
-  constructor(injector: Injector, private _roleService: RoleServiceProxy, private subject: NzModalRef) {
+  constructor(
+    private _fb: FormBuilder,
+    private _subject: NzModalRef,
+    private _roleService: RoleServiceProxy,
+    injector: Injector
+  ) {
     super(injector);
-
-    this.role = new RoleDto();
-    this.role.grantedPermissions = [];
-    this.permissions = new ListResultDtoOfPermissionDto();
   }
 
   ngOnInit(): void {
-    this._roleService.getAllPermissions()
-      .subscribe((permissions: ListResultDtoOfPermissionDto) => {
-        this.permissions = permissions;
-        this.initPermissions(this.permissions);
-      });
+    this.validateForm = this._fb.group({
+      name: [null, [Validators.required]],
+      displayName: [null, [Validators.required]],
+      description: [true],
+      grantedPermissions: [[]],
+      id: [null]
+    });
 
-    this._roleService
-      .get(this.roleId)
-      .pipe(
-        finalize(() => {
-        }),
-      )
-      .subscribe((result: RoleDto) => {
-        this.role = result;
-        this.initPermissions(this.permissions);
+    if (this.roleId == null) {
+      return;
+    }
+
+    this._roleService.getRoleForEdit(this.roleId).subscribe((result: GetRoleForEditOutput) => {
+      this.role.init(result.role);
+      this.role.grantedPermissions = result.grantedPermissionNames;
+      this.validateForm.patchValue(this.role);
+
+      _.map(result.permissions, item => {
+        const permission = new PermissionDto();
+        permission.init(item);
+        this.permissions.push(permission);
       });
+      this.initPermissions();
+    });
   }
 
-  initPermissions(permissions: ListResultDtoOfPermissionDto): void {
-    this.checkOptionsOne = _.map(permissions.items, c => {
+  initPermissions(): void {
+    this.checkOptions = _.map(this.permissions, p => {
       return {
-        label: c.displayName,
-        value: c.name,
-        checked: this.checkPermission(c.name)
+        label: p.displayName,
+        value: p.name,
+        checked: this.checkPermission(p.name)
       };
     });
   }
 
   checkPermission(permissionName: string): boolean {
-    if (this.role.grantedPermissions.indexOf(permissionName) !== -1) {
-      return true;
-    }
-    else {
-      return false;
-    }
+    return _.includes(this.role.grantedPermissions, permissionName);
+  }
+
+  setPermissions(values: string[]): void {
+    this.validateForm.controls.grantedPermissions.setValue(values);
   }
 
   save(): void {
+    for (const i in this.validateForm.controls) {
+      if (this.validateForm.controls.hasOwnProperty(i)) {
+        this.validateForm.controls[i].markAsDirty();
+        this.validateForm.controls[i].updateValueAndValidity();
+      }
+    }
+    if (!this.validateForm.valid) return;
+    this.role.init(this.validateForm.value);
+
     this.saving = true;
-
-    const selected = _.filter(this.checkOptionsOne, c => c.checked);
-    const permissions = _.map(selected, 'value');
-    this.role.grantedPermissions = permissions;
-
-    this._roleService
-      .update(this.role)
+    this._roleService.update(this.role)
       .pipe(
         finalize(() => {
           this.saving = false;
         }),
-      )
-      .subscribe(() => {
+      ).subscribe(() => {
         this.notify.info(this.l('SavedSuccessfully'));
         this.close();
       });
@@ -89,6 +101,6 @@ export class EditRoleDialogComponent extends AppComponentBase implements OnInit 
    * 关闭弹出窗
    */
   close() {
-    this.subject.destroy();
+    this._subject.destroy();
   }
 }

@@ -47,14 +47,12 @@ export class TenantChangeDialogComponent extends AppComponentBase {
 
     this.saving = true;
     // 验证租户
-    this._accountService
-      .isTenantAvailable(input)
+    this._accountService.isTenantAvailable(input)
       .pipe(
         finalize(() => {
           this.saving = false;
         }),
-      )
-      .subscribe(result => {
+      ).subscribe(result => {
         switch (result.state) {
           case AppTenantAvailabilityState.Available:
             abp.multiTenancy.setTenantIdCookie(result.tenantId);

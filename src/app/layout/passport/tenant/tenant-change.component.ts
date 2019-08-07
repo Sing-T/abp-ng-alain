@@ -13,7 +13,7 @@ export class TenantChangeComponent extends AppComponentBase implements OnInit {
   name: string;
   options = {};
 
-  constructor(injector: Injector, private _appDialogService: AppDialogService) {
+  constructor(private _appDialogService: AppDialogService, injector: Injector) {
     super(injector);
   }
 
@@ -32,14 +32,12 @@ export class TenantChangeComponent extends AppComponentBase implements OnInit {
    * 显示切换租户弹出框
    */
   showChangeModal(): void {
-    this._appDialogService
-      .show(TenantChangeDialogComponent, {
-        tenancyName: this.tenancyName,
-      })
-      .subscribe(result => {
-        abp.log.debug({
-          afterClose: result,
-        });
+    this._appDialogService.show(TenantChangeDialogComponent, {
+      tenancyName: this.tenancyName,
+    }).subscribe(result => {
+      abp.log.debug({
+        afterClose: result,
       });
+    });
   }
 }

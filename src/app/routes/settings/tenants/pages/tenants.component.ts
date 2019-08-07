@@ -1,13 +1,14 @@
 import { Component, Injector } from '@angular/core';
 import { finalize } from 'rxjs/operators';
+import { STPage, STColumn, STChange } from '@delon/abc';
 
+import { AppDialogService } from '@shared/dialog/app-dialog.service';
 import { PagedRequestDto, PagedListingComponentBase } from '@shared/paged-listing-component-base';
 import { TenantServiceProxy, TenantDto, PagedResultDtoOfTenantDto } from '@shared/service-proxies/service-proxies';
-import { AppDialogService } from '@shared/dialog/app-dialog.service';
 
 import { CreateTenantDialogComponent } from './create-tenant/create-tenant-dialog.component';
 import { EditTenantDialogComponent } from './edit-tenant/edit-tenant-dialog.component';
-import { STColumn, STChange } from '@delon/abc';
+
 
 class PagedTenantsRequestDto extends PagedRequestDto {
   keyword: string;
@@ -29,6 +30,10 @@ export class TenantsListComponent extends PagedListingComponentBase<TenantDto> {
     { index: 1, text: '否', value: false, checked: false },
   ];
 
+  pagination: STPage = {
+    front: false,
+    showSize: true,
+  };
   columns: STColumn[] = [
     { title: this.l('TenancyName'), index: 'tenancyName' },
     { title: this.l('Name'), index: 'name' },
@@ -63,8 +68,13 @@ export class TenantsListComponent extends PagedListingComponentBase<TenantDto> {
   stChange(e: STChange) {
     switch (e.type) {
       case 'ps':
+        this.pageIndex = 1;
         this.pageSize = e.ps;
         this.refresh();
+        break;
+      case 'pi':
+        this.pageIndex = e.pi;
+        this.getDataPage(this.pageIndex);
         break;
     }
   }
@@ -79,21 +89,21 @@ export class TenantsListComponent extends PagedListingComponentBase<TenantDto> {
         finalize(() => {
           finishedCallback();
         }),
-      )
-      .subscribe((result: PagedResultDtoOfTenantDto) => {
+      ).subscribe((result: PagedResultDtoOfTenantDto) => {
         this.tenants = result.items;
+        this.totalCount = result.totalCount;
         this.showPaging(result, pageNumber);
       });
   }
 
-  add() {
+  create() {
     this._appDialogService.show(CreateTenantDialogComponent, { tenantId: null }, 550).subscribe(res => {
       this.refresh();
     });
   }
 
-  edit(tenantId) {
-    this._appDialogService.show(EditTenantDialogComponent, { tenantId }, 550).subscribe(res => {
+  edit(id) {
+    this._appDialogService.show(EditTenantDialogComponent, { tenantId: id }, 550).subscribe(res => {
       this.getDataPage(this.pageIndex);
     });
   }
@@ -101,15 +111,13 @@ export class TenantsListComponent extends PagedListingComponentBase<TenantDto> {
   delete(tenant: TenantDto): void {
     abp.message.confirm(this.l('AreYouSureWantToDelete', tenant.name), this.l('Delete')).then((result: boolean) => {
       if (result) {
-        this._tenantService
-          .delete(tenant.id)
+        this._tenantService.delete(tenant.id)
           .pipe(
             finalize(() => {
               abp.notify.info(this.l('SuccessfullyDeleted'));
               this.refresh();
             }),
-          )
-          .subscribe(() => {});
+          ).subscribe(() => { });
       }
     });
   }
