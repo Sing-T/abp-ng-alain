@@ -5,7 +5,8 @@ abp 4.8.1 &amp; ng-alain 8.2.0
 - Tenant, Role, User Create/Edit Validation (Finished)
 - Dynamic Form
 - UI Optimization (Finished)
-- Add abp localization xml
+- Add abp localization xml (Finished)
 
-delete FlatPermissionDto
-add mapping(Role to RoleEditDto)
+### Abp.Application
+- delete FlatPermissionDto
+- add mapping(Role to RoleEditDto)

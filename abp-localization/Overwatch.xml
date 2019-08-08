@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<localizationDictionary culture="en">
+    <texts>
+        <!--System Build-in-->
+        <text name="About">About</text>
+        <text name="AppName">Overwatch</text>
+        <text name="HomePage">Home Page</text>
+        <text name="WelcomeMessage">Welcome to Overwatch!</text>
+        <!--Login-->
+        <text name="CanBeEmptyToLoginAsHost">Can be empty to login as host.</text>
+        <text name="ChangeTenant">Change tenant</text>
+        <text name="CouldNotCompleteLoginOperation">Could not complete login operation. Please try again later.</text>
+        <text name="CouldNotValidateExternalUser">Could not validate external user</text>
+        <text name="CurrentTenant">Current tenant</text>
+        <text name="InvalidUserNameOrPassword">Invalid user name or password</text>
+        <text name="LeaveEmptyToSwitchToHost">Leave empty to switch to the host</text>
+        <text name="LoginFailed">Login failed!</text>
+        <text name="OrLoginWith">Or login with</text>
+        <text name="PleaseEnterLoginInformation">Please enter login information</text>
+        <text name="RegisterFormUserNameInvalidMessage">Please don't enter an email address for username.</text>
+        <text name="RememberMe">Remember me</text>
+        <text name="SuccessfullyRegistered">Successfully registered</text>
+        <text name="TenantIsNotActive">Tenant {0} is not active.</text>
+        <text name="TenantSelection">Tenant Selection</text>
+        <text name="TenantSelection_Detail">Please select one of the following tenants.</text>
+        <text name="ThereIsNoTenantDefinedWithName{0}">There is no tenant defined with name {0}</text>
+        <text name="UserIsNotActiveAndCanNotLogin">User {0} is not active and can not log in.</text>
+        <text name="UserEmailIsNotConfirmedAndCanNotLogin">Your email address is not confirmed. You can not login.</text>
+        <text name="UserLockedOutMessage">The user account has been locked out. Please try again later.</text>
+        <text name="UserNameOrEmail">User name or email</text>
+        <text name="WaitingForActivationMessage">Your account is waiting to be activated by system admin.</text>
+        <text name="WaitingForEmailActivation">Your email address should be activated</text>
+        <!--Common Actions-->
+        <text name="LogIn">Log in</text>
+        <text name="Logout">Logout</text>
+        <text name="Register">Register</text>
+        <text name="Back">Back</text>
+        <text name="Refresh">Refresh</text>
+        <text name="More">More</text>
+        <text name="Query">Query</text>
+        <text name="Reset">Reset</text>
+        <text name="Actions">Actions</text>
+        <text name="Create">Create</text>
+        <text name="Edit">Edit</text>
+        <text name="Delete">Delete</text>
+        <text name="Cancel">Cancel</text>
+        <text name="Save">Save</text>
+        <text name="Select">Select</text>
+        <text name="OK">OK</text>
+        <!--Common Message-->
+        <text name="Actived">Actived</text>
+        <text name="NotActive">NotActive</text>
+        <text name="Administration">Administration</text>
+        <text name="AreYouSureWantToDelete">Are you sure want to delete {0}?</text>
+        <text name="Change">Change</text>
+        <text name="ClearAll">Clear all</text>
+        <text name="ClearOthers">Clear others</text>
+        <text name="CopyRight">© 2018 Overwatch</text>
+        <text name="CreationTime">Creation Time</text>
+        <text name="DefaultPasswordIs">Default password is {0}</text>
+        <text name="Description">Description</text>
+        <text name="Details">Details</text>
+        <text name="DisplayName">Display Name</text>
+        <text name="Index">Index</text>
+        <text name="IsActive">Is Active</text>
+        <text name="IsStatic">Is Static</text>
+        <text name="Keyword">Keyword</text>
+        <text name="LabelOptions">Label options</text>
+        <text name="NotSelected">Not selected</text>
+        <text name="On">On</text>
+        <text name="Off">Off</text>
+        <text name="Optional">Optional</text>
+        <text name="PleaseWait">Please wait...</text>
+        <text name="SavedSuccessfully">Saved successfully</text>
+        <text name="SuccessfullyDeleted">Successfully deleted</text>
+        <text name="Settings">Settings</text>
+        <text name="Skins">Skins</text>
+        <text name="StartTyping">Start Typing</text>
+        <text name="Tips">Tips</text>
+        <text name="Version">Version</text>
+        <text name="Yes">Yes</text>
+        <text name="No">No</text>
+        <!--Common Validate-->
+        <text name="FormIsNotValidMessage">Form is not valid. Please check and fix errors.</text>
+        <text name="InvalidEmailAddress">Invalid emailAddress</text>
+        <text name="TenantNameCanNotBeEmpty">Tenant name can not be empty</text>
+        <text name="ThisFieldDontMatchTheRexExp">This Field doesn't match the regExp: {0}</text>
+        <text name="ThisFieldIsRequired">This field is required</text>
+        <!--Tenant-->
+        <text name="Tenants">Tenants</text>
+        <text name="CreateNewTenant">Create new tenant</text>
+        <text name="EditTenant">Edit tenant</text>
+        <text name="TenancyName">Tenancy Name</text>
+        <text name="DatabaseConnectionString">Database Connection String</text>
+        <text name="AdminEmailAddress">Admin Email Address</text>
+        <text name="AdminPassword">Admin password</text>
+        <text name="TenantName_Regex_Description">Tenant name must be at least 2 chars, starts with a letter and continue with letter, number, dash or underscore.</text>
+        <text name="TenantIdIsNotActive{0}">TenantId {0} is not active</text>
+        <text name="UnknownTenantId{0}">Unknown tenantId {0}</text>
+        <!--User-->
+        <text name="Users">Users</text>
+        <text name="CreateNewUser">Create new user</text>
+        <text name="EditUser">Edit user</text>
+        <text name="UserDetails">User Details</text>
+        <text name="UserRoles">User Roles</text>
+        <text name="Password">Password</text>
+        <text name="ConfirmPassword">Confirm Password</text>
+        <text name="ResetPassword">Reset Password</text>
+        <text name="UpdatePassword">Update Password</text>
+        <text name="UserName">User Name</text>
+        <text name="Name">Name</text>
+        <text name="Surname">Surname</text>
+        <text name="NameSurname">Name surname</text>
+        <text name="FullName">Full Name</text>
+        <text name="EmailAddress">Email Address</text>
+        <!--Role-->
+        <text name="Roles">Roles</text>
+        <text name="CreateNewRole">Create new role</text>
+        <text name="EditRole">Edit role</text>
+        <text name="RoleDescription">Role Description</text>
+        <text name="Permissions">Permissions</text>
+        <text name="RoleName">Role Name</text>
+    </texts>
+</localizationDictionary>

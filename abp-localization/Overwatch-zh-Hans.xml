@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<localizationDictionary culture="zh-Hans">
+    <texts>
+        <!--System Build-in-->
+        <text name="About">关于我们</text>
+        <text name="AppName">Overwatch</text>
+        <text name="HomePage">主页</text>
+        <text name="WelcomeMessage">欢迎使用 Overwatch!</text>
+        <!--Login-->
+        <text name="ChangeTenant">更改租户</text>
+        <text name="CurrentTenant">当前租户</text>
+        <text name="ForgetPassword">忘记密码</text>
+        <text name="InvalidUserNameOrPassword">用户名或密码无效</text>
+        <text name="LastLoginTime">最近登陆时间</text>
+        <text name="LeaveEmptyToSwitchToHost">留空以切换到Host</text>
+        <text name="LoginFailed">登录失败!</text>
+        <text name="LoginPrompt">正在登陆，请稍候！</text>
+        <text name="PleaseEnterLoginInformation">请输入登录信息</text>
+        <text name="RememberMe">记住我</text>
+        <text name="TenantIsNotActive">租户 {0} 未激活</text>
+        <text name="ThereIsNoTenantDefinedWithName{0}">租户 {0}不存在</text>
+        <text name="UserIsNotActiveAndCanNotLogin">用户 {0} 未激活，不能登录</text>
+        <text name="UserNameOrEmail">用户名或邮箱地址</text>
+        <!--Common Actions-->
+        <text name="LogIn">登录</text>
+        <text name="Logout">注销</text>
+        <text name="Register">注册</text>
+        <text name="Back">返回</text>
+        <text name="Refresh">刷新</text>
+        <text name="More">更多</text>
+        <text name="Query">查询</text>
+        <text name="Reset">重置</text>
+        <text name="Actions">操作</text>
+        <text name="Create">新建</text>
+        <text name="Edit">编辑</text>
+        <text name="Delete">删除</text>
+        <text name="Cancel">取消</text>
+        <text name="Save">保存</text>
+        <text name="Select">选择</text>
+        <text name="OK">确定</text>
+        <!--Common Message-->
+        <text name="Actived">启用</text>
+        <text name="NotActive">未启用</text>
+        <text name="AreYouSureWantToDelete">确定需要删除 {0} 吗?</text>
+        <text name="Change" value="选择" />
+        <text name="CopyRight">© 2018 Overwatch</text>
+        <text name="CreationTime">创建时间</text>
+        <text name="DefaultPasswordIs">默认密码为：{0}</text>
+        <text name="Description">描述</text>
+        <text name="Details">详情</text>
+        <text name="DisplayName">显示名</text>
+        <text name="Index">序号</text>
+        <text name="IsActive">是否启用</text>
+        <text name="IsStatic">是否内置</text>
+        <text name="Keyword">关键字</text>
+        <text name="NotSelected">未选</text>
+        <text name="SavedSuccessfully">保存成功</text>
+        <text name="SuccessfullyDeleted">删除成功</text>
+        <text name="Tips">提示</text>
+        <text name="Yes">是</text>
+        <text name="No">否</text>
+        <!--Common Validate-->
+        <text name="FormIsNotValidMessage">部分输入信息不符合要求，请检查并改正..</text>
+        <text name="InvalidEmailAddress">无效的邮箱地址</text>
+        <text name="TenantNameCanNotBeEmpty">租户名不能为空</text>
+        <text name="ThisFieldDontMatchTheRexExp">不符合正则表达式： {0}</text>
+        <text name="ThisFieldIsRequired">此字段为必填项</text>
+        <!--Tenant-->
+        <text name="Tenants">租户</text>
+        <text name="CreateNewTenant">创建新租户</text>
+        <text name="EditTenant">编辑租户</text>
+        <text name="TenancyName">租户标识</text>
+        <text name="DatabaseConnectionString">数据库连接</text>
+        <text name="AdminEmailAddress">管理员邮箱地址</text>
+        <text name="DeleteTenantConfirm">确认删除该租户？</text>
+        <!--User-->
+        <text name="Users">用户</text>
+        <text name="CreateNewUser">创建新用户</text>
+        <text name="EditUser">编辑用户</text>
+        <text name="UserDetails">用户详情</text>
+        <text name="UserRoles">用户角色</text>
+        <text name="Password">密码</text>
+        <text name="ConfirmPassword">确认密码</text>
+        <text name="ResetPassword">重置密码</text>
+        <text name="UpdatePassword">修改密码</text>
+        <text name="PasswordComplexityNotSatisfied">密码复杂度要求不符.</text>
+        <text name="PasswordRequireDigit">密码至少需要一位是0到9的数字.</text>
+        <text name="PasswordRequireLowercase">密码至少需要一位是a到z的小写字母.</text>
+        <text name="PasswordRequireNonAlphanumeric">密码至少需要包含一个特殊字符（非字母或数字的字符）.</text>
+        <text name="PasswordRequireUppercase">密码至少需要一位是A到Z的大写字母.</text>
+        <text name="PasswordTooShort">密码长度太短</text>
+        <text name="UserName">用户名</text>
+        <text name="Name">名称</text>
+        <text name="Surname">姓</text>
+        <text name="FullName">全名</text>
+        <text name="EmailAddress">邮箱地址</text>
+        <text name="DeleteUserConfirm">确认删除该用户？</text>
+        <!--Role-->
+        <text name="Roles">角色</text>
+        <text name="CreateNewRole">创建新角色</text>
+        <text name="EditRole">编辑角色</text>
+        <text name="RoleDescription">角色详情</text>
+        <text name="RolePermission">角色权限</text>
+        <text name="RoleName">角色名</text>
+        <text name="Permissions">权限</text>
+        <text name="DeleteRolesConfirm">确认删除该角色？</text>
+    </texts>
+</localizationDictionary>
